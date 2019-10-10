@@ -1,0 +1,39 @@
+﻿@model Library.Models.CheckoutModels.CheckoutModel
+
+<div class="container">
+    <div class="card-header clearfix detailHeading">
+        <h2 class="text-muted"> Place Hold on Library Item</h2>
+    </div>
+
+    <div class="jumbotron">
+        <div class="row">
+            <div class="col-md-3">
+                <div>
+                    <p id="itemTitle">@Model.Title</p>
+                    <img class="detailImage" src="@Model.ImageUrl" />
+                </div>
+            </div>
+
+
+            <div class="col-md-9">
+                <p>There are currently @Model.HoldCount holds in queue for this item</p>
+                @*html tag helper that creates a form with the action : PlaceHold, Controller : Catalog  and form method: post *@
+                @using (Html.BeginForm("PlaceHold", "Catalog", FormMethod.Post))
+                {
+                    @Html.HiddenFor(a => a.AssetId)
+                    <div>
+                        Please insert a Library Card ID.
+                        @Html.TextBoxFor(a => a.LibraryCardId) @*text box to input/capture library card id mapped with the model*@
+                    </div>
+                    <div>
+                        <button type="submit" class="btn btn-info btn-lg">Place Hold</button>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Styles{
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
+}
